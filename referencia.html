@@ -62,15 +62,22 @@
 
         .hero-image {
             width: 100%;
-            height: 300px;
+            /* Removido height: 300px; */
             background: linear-gradient(45deg, #FFE066, #FF6B6B);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            /* Removido display: flex; align-items: center; justify-content: center; */
+            text-align: center; /* Para centralizar a imagem dentro do hero-image */
             font-size: 1.2rem;
             color: #666;
-            text-align: center;
             border-bottom: 3px solid #3498db;
+            padding: 1rem 0; /* Adicionado um padding para a imagem não colar nas bordas do hero-image */
+            overflow: hidden; /* Limpa os floats e faz o contêiner se ajustar ao conteúdo */
+        }
+
+        .hero-image img { /* Adicionado este seletor para a imagem */
+            display: block; /* Para permitir margin: auto */
+            max-width: 100%; /* Garante que a imagem seja responsiva */
+            height: auto; /* Mantém a proporção da imagem */
+            margin: 0 auto; /* Centraliza a imagem horizontalmente */
         }
 
         .content {
