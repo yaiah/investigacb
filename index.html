@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisão Interativa: Normas ABNT para Trabalhos Acadêmicos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variáveis e Estilo Base */
+        :root {
+            --color-primary-grenade: #800000;
+            --color-secondary-light: #fefafa;
+            --color-highlight-grenade: #b03a3a;
+            --color-text-light: #e3c3c3;
+            --color-text-dark: #333;
+            --color-success: #28a745;
+            --color-danger: #dc3545;
+            --color-info: #007bff;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--color-text-dark);
+            margin: 0;
+            line-height: 1.6;
+            background-color: var(--color-secondary-light);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--color-primary-grenade);
+            margin-top: 0;
+        }
+        h1 {
+            font-size: 2.2em;
+            text-align: center;
+            margin-bottom: 0.2em;
+        }
+        h2 {
+            font-size: 1.6em;
+            color: var(--color-highlight-grenade);
+            border-bottom: 2px solid var(--color-highlight-grenade);
+            padding-bottom: 5px;
+            margin-top: 1.5em;
+        }
+        h3 {
+            font-size: 1.2em;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            color: var(--color-text-dark);
+        }
+
+        /* Formulário de Questões */
+        .question-group {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+        .question:last-child {
+            border-bottom: none;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Inputs e Feedback */
+        input[type="text"], textarea {
+            width: 98%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+
+        .feedback {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            display: none;
+            font-size: 0.9em;
+        }
+
+        .correct {
+            background-color: #e6f7ee;
+            color: var(--color-success);
+        }
+
+        .incorrect {
+            background-color: #fcebeb;
+            color: var(--color-danger);
+        }
+
+        .correct .fa-check { margin-right: 5px; }
+        .incorrect .fa-times { margin-right: 5px; }
+
+        /* Estilo para questões de múltipla escolha */
+        .options label {
+            display: flex;
+            align-items: center;
+            font-weight: 400;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+        .options input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        /* Tabela de Preenchimento */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--color-primary-grenade);
+            color: var(--color-text-light);
+            font-weight: 600;
+        }
+        td input[type="text"] {
+            width: 90%;
+            border: none;
+            padding: 5px;
+        }
+
+        /* Botão de Verificação */
+        #check-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 30px;
+            background-color: var(--color-primary-grenade);
+            color: var(--color-text-light);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #check-button:hover {
+            background-color: var(--color-highlight-grenade);
+        }
+
+        .instructions {
+            background-color: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--color-info);
+            font-size: 0.95em;
+        }
+        
+        /* Rodapé de Glossário */
+        footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+            font-size: 0.85em;
+        }
+        footer strong {
+            color: var(--color-highlight-grenade);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            h2 {
+                font-size: 1.4em;
+            }
+            table th, table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1><i class="fas fa-book-reader"></i> Web App de Revisão ABNT</h1>
+        <p style="text-align: center; color: #555;">Estudo Dirigido – Normas ABNT para Trabalhos Acadêmicos (NBR 14724:2024)</p>
+        
+        <div class="instructions">
+            <p><i class="fas fa-info-circle"></i> **Instruções:** Responda às questões com base no Guia de Orientação da PUC Minas. Utilize o botão **"Verificar Respostas"** ao final de cada seção para conferir seu desempenho.</p>
+        </div>
+
+        <form id="quiz-form">
+            
+            <div class="question-group" id="part-1">
+                <h2>Parte 1 – Estrutura do Trabalho Acadêmico</h2>
+
+                <div class="question">
+                    <h3>1. Quais são as duas grandes partes de um trabalho acadêmico segundo a NBR 14724:2024?</h3>
+                    <label>a) <input type="text" name="p1_q1_a"></label>
+                    <label>b) <input type="text" name="p1_q1_b"></label>
+                    <div class="feedback" data-correct-a="Parte Externa" data-correct-b="Parte Interna"></div>
+                </div>
+
+                <div class="question">
+                    <h3>2. Complete com “obrigatório” ou “opcional” os elementos abaixo:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Elemento</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Capa:</td>
+                                <td><input type="text" name="p1_q2_capa"></td>
+                            </tr>
+                            <tr>
+                                <td>Folha de rosto:</td>
+                                <td><input type="text" name="p1_q2_folha"></td>
+                            </tr>
+                            <tr>
+                                <td>Errata:</td>
+                                <td><input type="text" name="p1_q2_errata"></td>
+                            </tr>
+                            <tr>
+                                <td>Folha de aprovação:</td>
+                                <td><input type="text" name="p1_q2_aprovacao"></td>
+                            </tr>
+                            <tr>
+                                <td>Resumo na língua vernácula:</td>
+                                <td><input type="text" name="p1_q2_resumo"></td>
+                            </tr>
+                            <tr>
+                                <td>Lista de símbolos:</td>
+                                <td><input type="text" name="p1_q2_simbolos"></td>
+                            </tr>
+                            <tr>
+                                <td>Referências:</td>
+                                <td><input type="text" name="p1_q2_referencias"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="feedback" data-correct-capa="obrigatório" data-correct-folha="obrigatório" data-correct-errata="opcional" data-correct-aprovacao="obrigatório" data-correct-resumo="obrigatório" data-correct-simbolos="opcional" data-correct-referencias="obrigatório"></div>
+                </div>
+
+                <div class="question">
+                    <h3>3. Quais são os três elementos textuais obrigatórios de todo trabalho acadêmico?</h3>
+                    <label>a) <input type="text" name="p1_q3_a"></label>
+                    <label>b) <input type="text" name="p1_q3_b"></label>
+                    <label>c) <input type="text" name="p1_q3_c"></label>
+                    <div class="feedback" data-correct-a="Introdução" data-correct-b="Desenvolvimento" data-correct-c="Conclusão"></div>
+                </div>
+
+                <div class="question">
+                    <h3>4. Diferencie “apêndice” e “anexo”.</h3>
+                    <label>Apêndice: <textarea name="p1_q4_apendice"></textarea></label>
+                    <label>Anexo: <textarea name="p1_q4_anexo"></textarea></label>
+                    <div class="feedback"></div> </div>
+                
+                <div class="question">
+                    <h3>5. A ficha catalográfica é obrigatória para todos os alunos? Explique.</h3>
+                    <textarea name="p1_q5_ficha"></textarea>
+                    <div class="feedback"></div> </div>
+            </div>
+
+            <div class="question-group" id="part-2">
+                <h2>Parte 2 – Formatação e Apresentação</h2>
+
+                <div class="question">
+                    <h3>1. Indique as margens corretas segundo a NBR 14724 (em cm):</h3>
+                    <label>Superior: <input type="text" name="p2_q1_superior" style="width: 100px;"> cm</label>
+                    <label>Inferior: <input type="text" name="p2_q1_inferior" style="width: 100px;"> cm</label>
+                    <label>Esquerda: <input type="text" name="p2_q1_esquerda" style="width: 100px;"> cm</label>
+                    <label>Direita: <input type="text" name="p2_q1_direita" style="width: 100px;"> cm</label>
+                    <div class="feedback" data-correct-superior="3" data-correct-inferior="2" data-correct-esquerda="3" data-correct-direita="2"></div>
+                </div>
+
+                <div class="question">
+                    <h3>2. Qual o tipo de fonte e tamanho recomendado para o texto principal?</h3>
+                    <label>Tipo e Tamanho: <input type="text" name="p2_q2_fonte"></label>
+                    <div class="feedback" data-correct-fonte="Arial ou Times New Roman, tamanho 12"></div>
+                </div>
+
+                <div class="question">
+                    <h3>3. Qual deve ser o espaçamento entre linhas no corpo do texto e em quais partes ele muda para simples?</h3>
+                    <label>Corpo do texto: <input type="text" name="p2_q3_corpo"></label>
+                    <label>Exceções (cite pelo menos 3):</label>
+                    <label>a) <input type="text" name="p2_q3_excecao_a"></label>
+                    <label>b) <input type="text" name="p2_q3_excecao_b"></label>
+                    <label>c) <input type="text" name="p2_q3_excecao_c"></label>
+                    <div class="feedback" data-correct-corpo="1,5 cm" data-correct-excecao_a="Citações acima de três linhas" data-correct-excecao_b="Notas de rodapé" data-correct-excecao_c="Referências"></div>
+                </div>
+
+                <div class="question">
+                    <h3>4. Onde e como deve ser feita a numeração das páginas?</h3>
+                    <textarea name="p2_q4_paginacao"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>5. O recuo do parágrafo deve iniciar em quantos centímetros?</h3>
+                    <label>Recuo: <input type="text" name="p2_q5_recuo"></label>
+                    <div class="feedback" data-correct-recuo="1,25 cm"></div>
+                </div>
+            </div>
+
+            <div class="question-group" id="part-3">
+                <h2>Parte 3 – Elementos Específicos</h2>
+
+                <div class="question">
+                    <h3>1. Como deve ser o título “RESUMO” na página de resumo?</h3>
+                    <textarea name="p3_q1_resumo_titulo"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>2. Qual a extensão recomendada para o resumo em língua vernácula?</h3>
+                    <label>Extensão: <input type="text" name="p3_q2_resumo_extensao"></label>
+                    <div class="feedback" data-correct-resumo_extensao="150 a 500 palavras"></div>
+                </div>
+
+                <div class="question">
+                    <h3>3. Como devem ser apresentadas as palavras-chave?</h3>
+                    <textarea name="p3_q3_palavras_chave"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>4. O sumário deve incluir os elementos pré-textuais? Justifique.</h3>
+                    <textarea name="p3_q4_sumario"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>5. As seções do trabalho (ex: 1 INTRODUÇÃO) devem ser chamadas de “capítulos”? Por quê?</h3>
+                    <textarea name="p3_q5_capitulos"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>6. Quais são os recursos tipográficos sugeridos para destacar seções primárias até quinárias?</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nível</th>
+                                <th>Exemplo</th>
+                                <th>Recursos Tipográficos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Primária</td>
+                                <td>1 INTRODUÇÃO</td>
+                                <td><input type="text" name="p3_q6_primaria"></td>
+                            </tr>
+                            <tr>
+                                <td>Secundária</td>
+                                <td>1.1 Objetivos</td>
+                                <td><input type="text" name="p3_q6_secundaria"></td>
+                            </tr>
+                            <tr>
+                                <td>Terciária</td>
+                                <td>1.1.1 Objetivo geral</td>
+                                <td><input type="text" name="p3_q6_terciaria"></td>
+                            </tr>
+                            <tr>
+                                <td>Quaternária</td>
+                                <td>1.1.1.1 Justificativa</td>
+                                <td><input type="text" name="p3_q6_quaternaria"></td>
+                            </tr>
+                            <tr>
+                                <td>Quinária</td>
+                                <td>1.1.1.1.1 Hipótese</td>
+                                <td><input type="text" name="p3_q6_quinaria"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="feedback" data-correct-primaria="CAIXA ALTA, NEGRITO, TAMANHO 12" data-correct-secundaria="Caixa baixa, negrito, tamanho 12" data-correct-terciaria="Caixa baixa, negrito, itálico, tamanho 12" data-correct-quaternaria="Caixa baixa, itálico, tamanho 12" data-correct-quinaria="Caixa baixa, sem negrito, tamanho 12"></div>
+                </div>
+            </div>
+
+            <div class="question-group" id="part-4">
+                <h2>Parte 4 – Citações, Ilustrações e Referências</h2>
+                
+                <div class="question">
+                    <h3>1. Ilustrações, quadros e tabelas devem ser posicionadas:</h3>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q1_posicao" value="a">a) no final do trabalho</label>
+                        <label><input type="radio" name="p4_q1_posicao" value="b">b) o mais próximo possível do trecho a que se referem</label>
+                        <label><input type="radio" name="p4_q1_posicao" value="c">c) apenas no apêndice</label>
+                        <label><input type="radio" name="p4_q1_posicao" value="d">d) de forma aleatória</label>
+                    </div>
+                    <div class="feedback" data-correct-p4_q1_posicao="b"></div>
+                </div>
+
+                <div class="question">
+                    <h3>2. Qual a formatação correta do título de uma tabela segundo o documento?</h3>
+                    <textarea name="p4_q2_tabela_titulo"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>3. Como deve ser indicada a fonte de uma ilustração feita pelo próprio autor?</h3>
+                    <textarea name="p4_q3_fonte_propria"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>4. Qual o alinhamento das referências e como devem ser separadas entre si?</h3>
+                    <textarea name="p4_q4_referencias_alinhamento"></textarea>
+                    <div class="feedback"></div> </div>
+
+                <div class="question">
+                    <h3>5. Desafio Final – Verdadeiro ou Falso (V/F):</h3>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q5_a" value="V"> (V)</label>
+                        <label><input type="radio" name="p4_q5_a" value="F"> (F)</label> O subtítulo na capa deve vir precedido de dois pontos.
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q5_b" value="V"> (V)</label>
+                        <label><input type="radio" name="p4_q5_b" value="F"> (F)</label> A epígrafe pré-textual deve, obrigatoriamente, seguir as regras da NBR 10520.
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q5_c" value="V"> (V)</label>
+                        <label><input type="radio" name="p4_q5_c" value="F"> (F)</label> As alíneas devem ser indicadas por letras maiúsculas (A, B, C...).
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q5_d" value="V"> (V)</label>
+                        <label><input type="radio" name="p4_q5_d" value="F"> (F)</label> As equações podem ser numeradas com algarismos arábicos entre parênteses, alinhados à direita.
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q5_e" value="V"> (V)</label>
+                        <label><input type="radio" name="p4_q5_e" value="F"> (F)</label> Os elementos pós-textuais não aparecem no sumário.
+                    </div>
+                    <div class="options">
+                        <label><input type="radio" name="p4_q5_f" value="V"> (V)</label>
+                        <label><input type="radio" name="p4_q5_f" value="F"> (F)</label> A folha de rosto e a folha de aprovação são praticamente idênticas, exceto pela inclusão dos membros da banca.
+                    </div>
+                    <div class="feedback" data-correct-p4_q5_a="V" data-correct-p4_q5_b="F" data-correct-p4_q5_c="F" data-correct-p4_q5_d="V" data-correct-p4_q5_e="F" data-correct-p4_q5_f="V"></div>
+                </div>
+            </div>
+
+            <button type="button" id="check-button"><i class="fas fa-check"></i> Verificar Respostas</button>
+            <div id="results" style="margin-top: 20px; text-align: center; font-size: 1.2em; font-weight: bold; display: none;"></div>
+
+        </form>
+
+        <footer>
+            <p><strong>Glossário Rápido (do documento):</strong></p>
+            [cite_start]<p><strong>Resumo:</strong> texto conciso com objetivo, metodologia, resultados e conclusões (150–500 palavras)[cite: 733].</p>
+            [cite_start]<p><strong>Palavras-chave:</strong> termos em minúscula, separados por ponto e vírgula[cite: 733].</p>
+            [cite_start]<p><strong>Alínea:</strong> subdivisão indicada por (a), (b), (c)... terminando em ponto e vírgula (exceto a última)[cite: 778].</p>
+            [cite_start]<p><strong>Ficha catalográfica:</strong> obrigatória apenas para pós-graduação stricto sensu (mestrado e doutorado)[cite: 730].</p>
+        </footer>
+    </div>
+
+    <script>
+        // Objeto de respostas esperadas (para verificação de texto livre e tabela)
+        const expectedAnswers = {
+            // Parte 1
+            'p1_q4_apendice': 'texto ou documento elaborado pelo autor, a fim de complementar sua argumentação',
+            'p1_q4_anexo': 'texto ou documento não elaborado pelo autor e que servem como comprovação de sua argumentação teórica',
+            'p1_q5_ficha': 'Não é obrigatória para todos os alunos. É obrigatória para alunos da Pós-graduação stricto sensu (Mestrado e Doutorado) da PUC Minas.',
+            // Parte 2
+            'p2_q4_paginacao': 'As páginas são contadas a partir da folha de rosto (mas não numeradas). A numeração deve ser feita a partir da página inicial da introdução, no canto superior direito, a 2 cm da borda superior, com fonte tamanho 10.',
+            // Parte 3
+            'p3_q1_resumo_titulo': 'Apresente o título RESUMO em caixa alta, negrito e centralizado.',
+            'p3_q3_palavras_chave': 'Apresente a expressão Palavras-chave. Os termos devem ter as iniciais em letra minúscula e ser separados por ponto e vírgula (exceto para nomes próprios e científicos).',
+            'p3_q4_sumario': 'Não, os elementos pré-textuais não podem ser levados para o sumário, mas o sumário é o último elemento pré-textual.',
+            'p3_q5_capitulos': 'Não. O trabalho acadêmico não pode ser dividido em capítulos; deve ser organizado em seções.',
+            // Parte 4
+            'p4_q2_tabela_titulo': 'O título deve ser inserido na parte superior, centralizado, seguido por uma indicação numérica sequencial em algarismos arábicos, separado por travessão e o título correspondente. Borda nas laterais devem ser abertas.',
+            'p4_q3_fonte_propria': 'Elaborado pelo próprio autor, elaboração própria ou próprio autor, entre outros.',
+            'p4_q4_referencias_alinhamento': 'Devem ser alinhadas à margem esquerda do texto e separadas entre si por uma linha em branco de espaço simples.',
+        };
+
+        // Função utilitária para normalizar o texto (remover acentos, pontuação e converter para minúsculas)
+        const normalizeText = (text) => {
+            return text.toLowerCase()
+                       .normalize("NFD")
+                       .replace(/[\u0300-\u036f]/g, "")
+                       .replace(/[^a-z0-9\s]/g, '')
+                       .replace(/\s+/g, ' ')
+                       .trim();
+        };
+
+        // Função principal para verificar as respostas
+        document.getElementById('check-button').addEventListener('click', function() {
+            let correctCount = 0;
+            let totalQuestions = 0;
+            const form = document.getElementById('quiz-form');
+            const resultsDiv = document.getElementById('results');
+
+            // Itera sobre todos os grupos de questões
+            document.querySelectorAll('.question-group').forEach(group => {
+                
+                // Itera sobre todas as perguntas de preenchimento e rádio
+                group.querySelectorAll('.question').forEach(q => {
+                    const feedbackDiv = q.querySelector('.feedback');
+                    let isQuestionCorrect = true;
+                    let qTotal = 0;
+                    let qCorrect = 0;
+                    
+                    // Verifica Rádio Buttons (Desafio Final e Questão 4.1)
+                    const radioInputs = q.querySelectorAll('input[type="radio"]');
+                    if (radioInputs.length > 0) {
+                        qTotal = radioInputs.length / 2; // V/F questions
+                        const qName = radioInputs[0].name.substring(0, 7); // Ex: p4_q5_a
+                        const correctValue = feedbackDiv.getAttribute(`data-correct-${qName}`);
+                        
+                        // Itera sobre todas as sub-perguntas de Rádio
+                        let subQNames = new Set();
+                        radioInputs.forEach(r => subQNames.add(r.name));
+
+                        subQNames.forEach(name => {
+                            const input = q.querySelector(`input[name="${name}"]:checked`);
+                            const correctAns = feedbackDiv.getAttribute(`data-correct-${name}`);
+                            totalQuestions++;
+                            if (input && input.value === correctAns) {
+                                qCorrect++;
+                                qTotal++;
+                                correctCount++;
+                            }
+                        });
+
+                        isQuestionCorrect = (qCorrect === qTotal);
+
+                    } else {
+                        // Verifica Text Inputs e Text Areas (Preenchimento Direto)
+                        const inputs = q.querySelectorAll('input[type="text"], textarea');
+                        
+                        let allFieldsCorrect = true;
+
+                        inputs.forEach(input => {
+                            const name = input.name.split('_').slice(1).join('_'); // Obtém o nome da sub-questão (ex: capa, a, inferior)
+                            const correctAttr = feedbackDiv.getAttribute(`data-correct-${name}`);
+                            let studentAnswer = input.value.trim();
+                            totalQuestions++;
+
+                            if (correctAttr) {
+                                // 1. Verificação de Correspondência Exata/Lista (Tabela e Texto Curto)
+                                const expectedNormalized = normalizeText(correctAttr);
+                                const studentNormalized = normalizeText(studentAnswer);
+                                
+                                // Aceita 100% ou 90% (para pequenas variações de frase)
+                                const isMatch = (studentNormalized === expectedNormalized) || 
+                                                (correctAttr.split(',').map(s => normalizeText(s.trim())).includes(studentNormalized));
+                                
+                                if (isMatch) {
+                                    input.style.backgroundColor = '#e6f7ee';
+                                    qCorrect++;
+                                    correctCount++;
+                                } else {
+                                    input.style.backgroundColor = '#fcebeb';
+                                    allFieldsCorrect = false;
+                                }
+
+                            } else if (expectedAnswers[input.name]) {
+                                // 2. Verificação de Textarea/Texto Longo (Aproximação)
+                                const expectedNormalized = normalizeText(expectedAnswers[input.name]);
+                                const studentNormalized = normalizeText(studentAnswer);
+                                
+                                // Usa uma métrica de similaridade (Ex: contagem simples de palavras chave) para feedback visual
+                                const keywords = expectedNormalized.split(' ').filter(w => w.length > 3);
+                                let keywordMatch = 0;
+                                keywords.forEach(kw => {
+                                    if (studentNormalized.includes(kw)) {
+                                        keywordMatch++;
+                                    }
+                                });
+                                
+                                // Se a maioria das palavras-chave bater, consideramos 'correto' para este app de revisão
+                                if (keywordMatch >= keywords.length * 0.5) { 
+                                    input.style.backgroundColor = '#e6f7ee';
+                                    qCorrect++;
+                                    correctCount++;
+                                } else {
+                                    input.style.backgroundColor = '#fcebeb';
+                                    allFieldsCorrect = false;
+                                }
+                            }
+                        });
+                        qTotal = inputs.length;
+                        isQuestionCorrect = allFieldsCorrect;
+                    }
+
+                    // Exibe o feedback geral da questão (só para as questões de texto curto/tabela)
+                    if (feedbackDiv.hasAttribute('data-correct-capa') || feedbackDiv.hasAttribute('data-correct-superior') || feedbackDiv.hasAttribute('data-correct-recuo') || feedbackDiv.hasAttribute('data-correct-p4_q5_a') || feedbackDiv.hasAttribute('data-correct-p4_q1_posicao') || feedbackDiv.hasAttribute('data-correct-fonte') || feedbackDiv.hasAttribute('data-correct-resumo_extensao')) {
+                        if (isQuestionCorrect) {
+                            feedbackDiv.innerHTML = `<i class="fas fa-check"></i> Correto!`;
+                            feedbackDiv.classList.remove('incorrect');
+                            feedbackDiv.classList.add('correct');
+                        } else {
+                            feedbackDiv.innerHTML = `<i class="fas fa-times"></i> Revise. Você acertou ${qCorrect} de ${qTotal} itens.`;
+                            feedbackDiv.classList.remove('correct');
+                            feedbackDiv.classList.add('incorrect');
+                        }
+                        feedbackDiv.style.display = 'block';
+                    } else if (q.querySelector('textarea')) {
+                        // Exibe feedback simples para texto longo
+                         if (qCorrect > 0) {
+                            feedbackDiv.innerHTML = `<i class="fas fa-check"></i> Revisão Concluída: Verifique o que você errou nos campos destacados.`;
+                            feedbackDiv.classList.remove('incorrect');
+                            feedbackDiv.classList.add('correct');
+                        } else {
+                            feedbackDiv.innerHTML = `<i class="fas fa-times"></i> Revisão Incompleta.`;
+                            feedbackDiv.classList.remove('correct');
+                            feedbackDiv.classList.add('incorrect');
+                        }
+                        feedbackDiv.style.display = 'block';
+                    }
+                });
+            });
+
+            // Exibe o resultado final
+            resultsDiv.innerHTML = `Pontuação Final: ${correctCount} de ${totalQuestions} questões corretas.`;
+            resultsDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
